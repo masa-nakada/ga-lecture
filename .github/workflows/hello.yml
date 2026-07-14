@@ -1,0 +1,16 @@
+name: Hello
+
+on: [push, workflow_dispatch]
+
+jobs:
+  greet:
+    runs-on: ubuntu-latest
+    steps:
+      - name: greeting
+        run: echo "Hello"
+      - name: print time
+        run: echo date
+      - name: print branch name
+        run: echo ${{ github.ref }} 
+      - name: print actor
+        run: echo ${{ github.actor }}
