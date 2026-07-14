@@ -13,8 +13,8 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
-        cache: pip
         with:
+          cache: pip
           python-version: "3.13"
       - run: pip install -r requirements.txt
       - name: lint
@@ -29,9 +29,9 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
-        cache: pip
         with:
           python-version: ${{ matrix.python }}
+          cache: pip
       - run: pip install -r requirements.txt
       - name: test
         run: pytest
