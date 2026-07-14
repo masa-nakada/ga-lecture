@@ -9,7 +9,7 @@ jobs:
       - name: greeting
         run: echo "Hello"
       - name: print time
-        run: echo date
+        run: date
       - name: print branch name
         run: echo ${{ github.ref }} 
       - name: print actor
