@@ -8,23 +8,28 @@ on:
 
 jobs:
   lint:
+    timeout-minutes: 10
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
+        cache: pip
         with:
-          python-version: "3.12"
+          python-version: "3.13"
       - run: pip install -r requirements.txt
       - name: lint
         run: ruff check .
   test:
+    timeout-minutes: 10
     runs-on: ubuntu-latest
     strategy:
       matrix:
         python: ["3.13", "3.14"]
+      fail-fast: false
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
+        cache: pip
         with:
           python-version: ${{ matrix.python }}
       - run: pip install -r requirements.txt
