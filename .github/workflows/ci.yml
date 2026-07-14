@@ -1,0 +1,37 @@
+name: Python check
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  lint:
+    timeout-minutes: 10
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          cache: pip
+          python-version: "3.13"
+      - run: pip install -r requirements.txt
+      - name: lint
+        run: ruff check .
+  test:
+    timeout-minutes: 10
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python: ["3.13", "3.14"]
+      fail-fast: false
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python }}
+          cache: pip
+      - run: pip install -r requirements.txt
+      - name: test
+        run: pytest
